@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     {
         // Get the Rigidbody2D component attached to the player
         rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void Update()
@@ -24,11 +25,13 @@ public class PlayerScript : MonoBehaviour
             if (!isJumping)
             {
                 // Jump if not currently jumping
+                ResumeFalling();
                 Jump();
             }
             else
             {
                 // Reverse direction if already jumping
+                ResumeFalling();
                 ReverseDirection();
                 Jump(); // Jump again in the new direction
             }
@@ -64,9 +67,22 @@ public class PlayerScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // If the player hits the ground (or any object tagged "Ground")
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("MapObject"))
         {
             isJumping = false;  // Reset jump state to allow another jump
+            ReverseDirection();
+            StopFalling();
         }
+    }
+
+    void StopFalling()
+    {
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
+    }
+
+    void ResumeFalling()
+    {
+        rb.gravityScale = 0.7f;
     }
 }
