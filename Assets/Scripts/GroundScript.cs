@@ -9,7 +9,7 @@ public class GroundScript : MonoBehaviour
         // Get the camera's view bounds
         Camera cam = Camera.main;
         float screenHeight = cam.orthographicSize * 2;
-        float screenWidth = screenHeight * cam.aspect;
+        float screenWidth = (screenHeight * cam.aspect) * 2;
 
         // Adjust the position and scale of the square
         // Set the square's width to cover the entire screen width
