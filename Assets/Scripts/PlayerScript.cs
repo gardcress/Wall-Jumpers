@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float jumpForce = 10f;    // Vertical force for the jump
-    public float moveForce = 5f;     // Horizontal force for the jump direction
+    public float jumpForce = 5f;    // Vertical force for the jump
+    public float moveForce = 3f;     // Horizontal force for the jump direction
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
     private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
