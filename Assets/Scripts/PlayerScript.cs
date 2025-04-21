@@ -9,12 +9,17 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
     private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
+    public int maxHealth = 5;
+    public int currentHealth;
+    public HearthBarScript healthBar;
 
     void Start()
     {
         // Get the Rigidbody2D component attached to the player
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
@@ -36,6 +41,17 @@ public class PlayerScript : MonoBehaviour
                 Jump(); // Jump again in the new direction
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(1);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     void Jump()
