@@ -9,12 +9,20 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
     private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
+    private SpriteRenderer sr;
+    private EdgeCollider2D edge;
+
+    public Animator ani;
 
     void Start()
     {
         // Get the Rigidbody2D component attached to the player
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        sr = GetComponent<SpriteRenderer>();
+        edge = GetComponent<EdgeCollider2D>();
+        
+        
     }
 
     void Update()
@@ -27,6 +35,7 @@ public class PlayerScript : MonoBehaviour
                 // Jump if not currently jumping
                 ResumeFalling();
                 Jump();
+                
             }
             else
             {
@@ -35,6 +44,16 @@ public class PlayerScript : MonoBehaviour
                 ReverseDirection();
                 Jump(); // Jump again in the new direction
             }
+
+            sr.flipX = !sr.flipX;
+            Vector2[] points = edge.points;
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i].x *= -1;
+            }
+            System.Array.Reverse(points);
+
+            edge.points = points;
         }
     }
 
@@ -52,8 +71,11 @@ public class PlayerScript : MonoBehaviour
         
         rb.velocity = new Vector2(direction * moveForce, rb.velocity.y); // Apply the horizontal force to the velocity
 
+        
+
         // Set jumping state to true
         isJumping = true;
+        ani.SetBool("IsJumping", true);
     }
 
     // Reverse the direction of the jump
@@ -70,6 +92,7 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("MapObject"))
         {
             isJumping = false;  // Reset jump state to allow another jump
+            ani.SetBool("IsJumping", false);
             ReverseDirection();
             StopFalling();
         }
