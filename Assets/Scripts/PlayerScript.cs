@@ -10,7 +10,6 @@ public class PlayerScript : MonoBehaviour
     private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
     private SpriteRenderer sr;
-    private EdgeCollider2D edge;
 
     public Animator ani;
 
@@ -20,7 +19,6 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         sr = GetComponent<SpriteRenderer>();
-        edge = GetComponent<EdgeCollider2D>();
         
         
     }
@@ -46,14 +44,6 @@ public class PlayerScript : MonoBehaviour
             }
 
             sr.flipX = !sr.flipX;
-            Vector2[] points = edge.points;
-            for (int i = 0; i < points.Length; i++)
-            {
-                points[i].x *= -1;
-            }
-            System.Array.Reverse(points);
-
-            edge.points = points;
         }
     }
 
