@@ -7,7 +7,6 @@ public class PlayerScript : MonoBehaviour
     public float jumpForce = 5f;    // Vertical force for the jump
     public float moveForce = 3f;     // Horizontal force for the jump direction
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
-    private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
     private SpriteRenderer sr;
 
@@ -28,70 +27,32 @@ public class PlayerScript : MonoBehaviour
         // Check for mouse click or screen tap
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isJumping)
+            if(rb.gravityScale == 0.0f)
             {
-                // Jump if not currently jumping
-                ResumeFalling();
                 Jump();
-                
-            }
+            } 
             else
             {
-                // Reverse direction if already jumping
-                ResumeFalling();
-                ReverseDirection();
-                Jump(); // Jump again in the new direction
+                ChangeDirection();
             }
-
-            sr.flipX = !sr.flipX;
         }
     }
 
-    void Jump()
+    void ChangeDirection()
     {
-        // Apply vertical jump force (Y-axis)
-        if (!isJumping)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);  // Set the Y velocity for the jump
-
-        }
-
-        // Apply horizontal force in the current direction (right or left)
         float direction = isFacingRight ? 1f : -1f;
-        
-        rb.velocity = new Vector2(direction * moveForce, rb.velocity.y); // Apply the horizontal force to the velocity
-
-        
-
-        // Set jumping state to true
-        isJumping = true;
-        ani.SetBool("IsJumping", true);
-    }
-
-    // Reverse the direction of the jump
-    void ReverseDirection()
-    {
-        // Flip the direction flag
+        rb.velocity = new Vector2(direction * moveForce, rb.velocity.y);
         isFacingRight = !isFacingRight;
+        sr.flipX = !sr.flipX;
     }
 
-    // Check when the player lands (to allow more jumps)
-    void OnCollisionEnter2D(Collision2D collision)
+    void Jump ()
     {
-        // If the player hits the ground (or any object tagged "Ground")
-        if (collision.gameObject.CompareTag("MapObject"))
-        {
-            isJumping = false;  // Reset jump state to allow another jump
-            ani.SetBool("IsJumping", false);
-            ReverseDirection();
-            StopFalling();
-        }
-    }
-
-    void StopFalling()
-    {
-        rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero;
+        ResumeFalling();
+        ChangeDirection();
+        ani.SetBool("IsStanding", false);
+        ani.SetBool("IsJumping", true);
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     void ResumeFalling()
