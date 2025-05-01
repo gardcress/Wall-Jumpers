@@ -72,11 +72,11 @@ public class MapGeneratorScript : MonoBehaviour
         GameObject ground = Instantiate(groundPrefab, new Vector2(0, 0), Quaternion.identity, transform);
 
         // set scale
-        ground.transform.localScale = new Vector3(screenWidth, ground.transform.localScale.y, ground.transform.localScale.z);
-        Debug.Log(transform.localScale.y);
+        //ground.transform.localScale = new Vector3(screenWidth, ground.transform.localScale.y, ground.transform.localScale.z);
+        //Debug.Log(transform.localScale.y);
 
         // move the square so the bottom edge aligns with the bottom of the screen
-        ground.transform.position = new Vector3(0, -screenHeight / 2 + ground.transform.localScale.y / 2, 0);
+        ground.transform.position = new Vector3(0, -screenHeight / 2, 0);
 
         spawnerAnchor = new Vector2(ground.transform.position.x - 1, ground.transform.position.y + 2);
 

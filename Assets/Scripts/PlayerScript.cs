@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
         // Check for mouse click or screen tap
         if (Input.GetMouseButtonDown(0))
         {
-            if(rb.gravityScale == 0.0f)
+            if(rb.gravityScale <= 0.2f)
             {
                 Jump();
             } 
