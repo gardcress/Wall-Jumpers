@@ -6,13 +6,13 @@ public class CameraScript : MonoBehaviour
 {
     public Transform target; // The object to follow
     public Vector3 offset;   // Offset from the target
-    public float smoothSpeed = 2.0f; // Smoothness of the camera movement
+    public float smoothSpeed = 4.0f; // Smoothness of the camera movement
 
     void LateUpdate()
     {
         if (target != null)
         {
-            if(target.position.y >= 0)
+            if(target.position.y >= -0.5f)
             {
                 Vector3 desiredPosition = target.position + offset;
                 Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
