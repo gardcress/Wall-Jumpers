@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField] private AudioClip jumpSound, pickupSound;
     public float jumpForce = 5f;    // Vertical force for the jump
     public float moveForce = 3f;     // Horizontal force for the jump direction
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
     private SpriteRenderer sr;
+    private AudioSource audioSource;
 
     public Animator ani;
 
@@ -18,8 +20,8 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         sr = GetComponent<SpriteRenderer>();
-        
-        
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -52,6 +54,7 @@ public class PlayerScript : MonoBehaviour
         ChangeDirection();
         ani.SetBool("IsStanding", false);
         ani.SetBool("IsJumping", true);
+        audioSource.PlayOneShot(jumpSound, 0.5f);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
