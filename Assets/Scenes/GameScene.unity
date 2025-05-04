@@ -185,6 +185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloudOne (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3923482346529262637, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7440888268893134729, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.2
@@ -615,6 +619,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloudOne (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3923482346529262637, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7440888268893134729, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.95
@@ -1042,6 +1050,10 @@ PrefabInstance:
     - target: {fileID: 74009853553502889, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
       propertyPath: m_Name
       value: CloudOne (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3923482346529262637, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7440888268893134729, guid: 8d65ad5a4683dba468aa0f4d03148131, type: 3}
       propertyPath: m_LocalPosition.x
