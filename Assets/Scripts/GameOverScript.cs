@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScript : MonoBehaviour
 {
-    public Transform groundReference; // Assign the ground object here
+    //public Transform groundReference; // Assign the ground object here
     public string menuSceneName = "MenuScene";
 
     void Start()
@@ -14,9 +14,9 @@ public class GameOverScript : MonoBehaviour
 
     void Update()
     {
-        if (groundReference == null) return;
+        //if (groundReference == null) return;
 
-        if (transform.position.y < (groundReference.position.y - 2.0f))
+        if (transform.position.y < -10)
         {
             SceneManager.LoadScene(menuSceneName);
         }
