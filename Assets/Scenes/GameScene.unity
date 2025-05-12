@@ -688,7 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e841f24529cb4f93429ea22589e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundReference: {fileID: 0}
   menuSceneName: MenuScene
 --- !u!95 &1431893019
 Animator:
