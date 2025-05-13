@@ -169,6 +169,7 @@ MonoBehaviour:
   objectsPerTheme: 10
   standardWall: {fileID: 6853101624086219989, guid: bf94ef427cd59a842844710edab07e5d, type: 3}
   groundPrefab: {fileID: 4337513501154744013, guid: 72d3a12b15efb2e46b448a3bd140d365, type: 3}
+  smallBlock: {fileID: 3584316300872367206, guid: 5cc3e3251b67eda4987cff43b0880f08, type: 3}
 --- !u!1001 &240508935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -652,6 +653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 7983583683655612846, guid: 413fd47025abd6841acf884cc321c3c1, type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -790,7 +795,7 @@ SpriteRenderer:
   m_SortingLayerID: 833456905
   m_SortingLayer: 1
   m_SortingOrder: 999
-  m_Sprite: {fileID: 21300000, guid: 1b859efb8c19b634ea46da0659195d91, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d754d093279cef48b0ec3bacabce999, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -964,9 +969,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0022441659, y: -0.028448325}
-  m_Size: {x: 1.0956689, y: 1.0273967}
-  m_Direction: 1
+  m_Offset: {x: -0.14801168, y: -0.0612629}
+  m_Size: {x: 0.77496326, y: 0.94493526}
+  m_Direction: 0
 --- !u!82 &1431893023
 AudioSource:
   m_ObjectHideFlags: 0

@@ -45,7 +45,10 @@ public class PlayerScript : MonoBehaviour
         float direction = isFacingRight ? 1f : -1f;
         rb.velocity = new Vector2(direction * moveForce, rb.velocity.y);
         isFacingRight = !isFacingRight;
-        sr.flipX = !sr.flipX;
+        //sr.flipX = !sr.flipX;
+        Vector3 flipX = transform.localScale;
+        flipX.x *= -1;
+        transform.localScale = flipX;
     }
 
     void Jump ()

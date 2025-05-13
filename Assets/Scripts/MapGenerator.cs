@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using Random = UnityEngine.Random;
 
 public class MapGeneratorScript : MonoBehaviour
 {
@@ -12,58 +13,86 @@ public class MapGeneratorScript : MonoBehaviour
     
     public GameObject standardWall;
     public GameObject groundPrefab;
+    public GameObject smallBlock;
+
+
+    // ALL MAPS GENERATE FROM THE BOTTOM UP
 
     private string[] startMap = new string[]
     {
+        "++x",
+        "--x-b+",
+        "++x"
+    };
+
+    private string[] rightSmallBlockStairs = new string[]
+    {
+        "-b",
         "x",
+        "+b*+b*+b"
+    };
+
+    private string[] standardElevatorShaft = new string[]
+    {
+        "x++x--",
+        "b++x--",
+        "x++x--",
+        "x++b--",
+        "x++x--",
+        "-x++b--"
+    };
+
+    private string[] smallBlockClimbWall = new string[]
+    {
+        "-b+++b",
+        "+b++++b",
+        "+++b---b----b",
+        "b+++++b",
+        "---b---b",
+        "--b++++b+++++b",
+        "+--b-b----b",
+        "-b++b++b"
+    };
+
+
+
+    private string[] rightSmallBlockPillarJump = new string[]
+    {
         "+x",
+        "+b++b++b++b",
         "x"
     };
 
-    private string[] startMap2 = new string[]
+    private string[] standardPillarJump = new string[]
     {
-        "x",
-        "-x",
+        "+x",
+        "+x++x++x++x",
         "x"
     };
 
-    private string[] normalSegment1 = new string[]
+    private string[] standardStairs = new string[]
     {
-        "x",
-        "+x",
-        "x",
+        "++x",
+        "b",
         "-x",
-        "x",
-        "+x",
-        "x",
-        "-x",
-        "x",
-        "+x",
-        "x"
+        "--x",
+        "b",
+        "++x",
+        "++x",
+        "++x"
     };
 
-    private string[] normalSegment2 = new string[]
-    {
-        "x",
-        "+x",
-        "+x",
-        "+x",
-        "x",
-        "+x",
-        "+x",
-        "+x",
-        "x"
-    };
 
     private Vector2 spawnerAnchor = new Vector2(0,0);
+    private GameObject lastObjectInRow;
 
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Map generator running");
-        
 
+        lastObjectInRow = standardWall;
 
         Camera cam = Camera.main;
         float screenHeight = cam.orthographicSize * 2;
@@ -78,13 +107,19 @@ public class MapGeneratorScript : MonoBehaviour
         // move the square so the bottom edge aligns with the bottom of the screen
         ground.transform.position = new Vector3(0, -screenHeight / 2, 0);
 
-        spawnerAnchor = new Vector2(ground.transform.position.x - 1, ground.transform.position.y + 2);
+        spawnerAnchor = new Vector2(ground.transform.position.x - 1, ground.transform.position.y + 0f);
 
 
         SpawnMap(startMap);
-        SpawnMap(normalSegment1);
-        SpawnMap(normalSegment2);
-        SpawnMap(normalSegment1);
+        SpawnRandomMap();
+        SpawnRandomMap();
+        //SpawnMap(smallBlockClimbWall);
+        //SpawnMap(standardElevatorShaft);
+        //SpawnMap(rightSmallBlockPillarJump);
+        //SpawnMap(rightSmallBlockStairs);
+        //SpawnMap(standardPillarJump);
+        //SpawnMap(standardStairs);
+
     }
 
     void Update()
@@ -93,9 +128,28 @@ public class MapGeneratorScript : MonoBehaviour
         if(player.transform.position.y >= spawnerAnchor.y - 20)
         {
             Debug.Log("Spawning new map part");
-            SpawnMap(normalSegment1);
+            SpawnRandomMap();
         }
 
+    }
+
+    void SpawnRandomMap()
+    {
+        // Array of possible map chunks
+        string[][] mapChunks = new string[][]
+        {
+        startMap,
+        smallBlockClimbWall,
+        standardElevatorShaft,
+        rightSmallBlockPillarJump,
+        rightSmallBlockStairs,
+        standardPillarJump,
+        standardStairs
+        };
+
+
+        int randIndex = Random.Range(0, mapChunks.Length);
+        SpawnMap(mapChunks[randIndex]);
     }
 
     private void SpawnMap(string[] str)
@@ -103,33 +157,75 @@ public class MapGeneratorScript : MonoBehaviour
         string[] map = str;
         Array.Reverse(map);
 
+
         foreach (string row in map)
         {
+            bool isFirstObject = true;
+
             foreach (char col in row)
             {
-                if (col == 'x')
+                // MAP OPERATORS
+                if (col == '+')
                 {
-                    SpawnObject(standardWall, spawnerAnchor.x, spawnerAnchor.y);
-                    continue;
-                }
-                if(col == '+')
-                {
-                    spawnerAnchor.x += 2.5f;
+                    spawnerAnchor.x += 1.0f;
                     continue;
                 }
                 if (col == '-')
                 {
-                    spawnerAnchor.x -= 2.5f;
+                    spawnerAnchor.x -= 1.0f;
                     continue;
                 }
+                if (col == '*')
+                {
+                    spawnerAnchor.y += 1.0f;
+                    continue;
+                }
+                if (col == '/')
+                {
+                    spawnerAnchor.y -= 1.0f;
+                    continue;
+                }
+
+
+                // MAP OBJECTS
+                if (col == 'x')
+                {
+                    lastObjectInRow = SpawnObject(standardWall, isFirstObject);
+                }
+                else if (col == 'b')
+                {
+                    lastObjectInRow = SpawnObject(smallBlock, isFirstObject);
+                }
+
+
+                isFirstObject = false;
             }
-            spawnerAnchor.y += 3.5f;
+
+            
+            spawnerAnchor.y += 1f;
         }
     }
 
-    void SpawnObject(GameObject go, float x, float y)
+    GameObject SpawnObject(GameObject go, bool isFirstObject)
     {
-        Instantiate(go, new Vector2(x, y), Quaternion.identity, transform);
+        SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+        float localHeight = sr.sprite.bounds.size.y;
+
+        if (isFirstObject)
+        {
+            spawnerAnchor.y += localHeight / 4;
+            SpriteRenderer lastSr = lastObjectInRow.GetComponent<SpriteRenderer>();
+            float lastHeight = lastSr.sprite.bounds.size.y;
+            spawnerAnchor.y += lastHeight / 4;
+        }   
+
+        return Instantiate(go, new Vector2(spawnerAnchor.x, spawnerAnchor.y), Quaternion.identity, transform);
+
+
+        //if(isFirstObject)
+        //{
+        //    spawnerAnchor.y += localHeight / 4;
+        //}
     }
 
 }
