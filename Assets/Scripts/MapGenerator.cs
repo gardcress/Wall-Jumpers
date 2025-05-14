@@ -54,6 +54,30 @@ public class MapGeneratorScript : MonoBehaviour
         "-b++b++b"
     };
 
+    private string[] standardWallNormal = new string[]
+    {
+        "--x",
+        "++x",
+        "x",
+        "--x",
+        "++x",
+        "--x",
+        "++x",
+        "x"
+    };
+
+
+    private string[] standardWallNormal2 = new string[]
+    {
+        "-x",
+        "++x",
+        "x",
+        "b",
+        "x",
+        "++x",
+        "--x",
+        "+x"
+    };
 
 
     private string[] rightSmallBlockPillarJump = new string[]
@@ -111,6 +135,7 @@ public class MapGeneratorScript : MonoBehaviour
 
 
         SpawnMap(startMap);
+        SpawnMap(standardWallNormal);
         SpawnRandomMap();
         SpawnRandomMap();
         //SpawnMap(smallBlockClimbWall);
@@ -144,6 +169,9 @@ public class MapGeneratorScript : MonoBehaviour
         rightSmallBlockPillarJump,
         rightSmallBlockStairs,
         standardPillarJump,
+        standardWallNormal,
+        standardWallNormal2,
+        standardWallNormal, standardWallNormal2,
         standardStairs
         };
 
