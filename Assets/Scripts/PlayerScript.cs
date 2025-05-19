@@ -29,7 +29,8 @@ public class PlayerScript : MonoBehaviour
         // Check for mouse click or screen tap
         if (Input.GetMouseButtonDown(0))
         {
-            if(rb.gravityScale <= 0.2f)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            if (rb.gravityScale <= 0.4f)
             {
                 Jump();
             } 
