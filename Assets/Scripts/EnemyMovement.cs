@@ -11,13 +11,13 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        rend GetComponent<SpriteRenderer>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(new Vetor2(moveSpeed, 0) * Time.deltaTime);
+        transform.Translate(new Vector2(moveSpeed, 0) * Time.deltaTime);
 
         if (moveSpeed > 0)
         {
@@ -41,16 +41,12 @@ public class EnemyMovement : MonoBehaviour
         {
             moveSpeed = -moveSpeed;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTage("Player"))
+        if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>());
-            other.GetComponent<Rigidbody2D>().AddForce = (new Vector2(0, bounciness));
+            other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            other.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, bounciness));
             Destroy(gameObject);
         }
-
     }
 }
