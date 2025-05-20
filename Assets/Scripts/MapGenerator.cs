@@ -241,7 +241,11 @@ public class MapGeneratorScript : MonoBehaviour
         standardWallNormal, standardWallNormal,
         standardWallNormal2, standardWallNormal2,
         slideElevatorShaft,
-        standardStairs
+        standardStairs,
+        spikePillarJump,
+        spikeElevatorShaftLong,
+        spikeElevatorShaft,
+        spikeStairs
         };
 
 
