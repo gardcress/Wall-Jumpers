@@ -197,9 +197,9 @@ public class MapGeneratorScript : MonoBehaviour
 
         SpawnMap(startMap);
 
-        SpawnMap(spikePillarJump);
-        SpawnMap(spikeStairs);
-        SpawnMap(spikeElevatorShaftLong);
+        //SpawnMap(spikePillarJump);
+        //SpawnMap(spikeStairs);
+        //SpawnMap(spikeElevatorShaftLong);
 
 
         SpawnMap(standardWallNormal);
