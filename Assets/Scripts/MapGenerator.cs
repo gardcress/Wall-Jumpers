@@ -11,9 +11,13 @@ public class MapGeneratorScript : MonoBehaviour
 {
     public int objectsPerTheme = 10;
     
-    public GameObject standardWall;
-    public GameObject groundPrefab;
-    public GameObject smallBlock;
+    public GameObject standardWall; //x
+    public GameObject groundPrefab; //
+    public GameObject smallBlock; //b
+    public GameObject slideWall; //s
+    public GameObject spikeWallRight; //d
+    public GameObject spikeWallLeft; //a
+
 
 
     // ALL MAPS GENERATE FROM THE BOTTOM UP
@@ -40,6 +44,61 @@ public class MapGeneratorScript : MonoBehaviour
         "x++b--",
         "x++x--",
         "-x++b--"
+    };
+
+    private string[] slideElevatorShaft = new string[]
+    {
+        "s++s--",
+        "b++s--",
+        "s++s--",
+        "s++b--",
+        "s++s--",
+        "-s++b--"
+    };
+
+    private string[] spikeElevatorShaft = new string[]
+    {
+        "s++s--",
+        "p++s--",
+        "s++s--",
+        "s++p--",
+        "s++s--",
+        "-s++p--"
+    };
+
+    private string[] spikeElevatorShaftLong = new string[]
+    {
+        "p++s--",
+        "p++s--",
+        "p++p--",
+        "s++p--",
+        "s++s--",
+        "-s++p--",
+        "s++p--",
+        "p++s--",
+        "p++s--",
+        "p++p--",
+        "p++s--",
+        "-s++p--"
+    };
+
+    private string[] spikePillarJump = new string[]
+    {
+        "+s",
+        "+p++p++p++s",
+        "s"
+    };
+
+    private string[] spikeStairs = new string[]
+    {
+        "++s",
+        "b",
+        "-p",
+        "--s",
+        "p",
+        "++s",
+        "++s",
+        "++s"
     };
 
     private string[] smallBlockClimbWall = new string[]
@@ -69,13 +128,13 @@ public class MapGeneratorScript : MonoBehaviour
 
     private string[] standardWallNormal2 = new string[]
     {
-        "-x",
-        "++x",
+        "-s",
+        "++s",
         "x",
         "b",
         "x",
-        "++x",
-        "--x",
+        "++s",
+        "--s",
         "+x"
     };
 
@@ -86,6 +145,8 @@ public class MapGeneratorScript : MonoBehaviour
         "+b++b++b++b",
         "x"
     };
+
+    
 
     private string[] standardPillarJump = new string[]
     {
@@ -135,7 +196,15 @@ public class MapGeneratorScript : MonoBehaviour
 
 
         SpawnMap(startMap);
+
+        //SpawnMap(spikePillarJump);
+        //SpawnMap(spikeStairs);
+        //SpawnMap(spikeElevatorShaftLong);
+
+
         SpawnMap(standardWallNormal);
+
+
         SpawnRandomMap();
         SpawnRandomMap();
         //SpawnMap(smallBlockClimbWall);
@@ -169,10 +238,14 @@ public class MapGeneratorScript : MonoBehaviour
         rightSmallBlockPillarJump,
         rightSmallBlockStairs,
         standardPillarJump,
-        standardWallNormal,
-        standardWallNormal2,
-        standardWallNormal, standardWallNormal2,
-        standardStairs
+        standardWallNormal, standardWallNormal,
+        standardWallNormal2, standardWallNormal2,
+        slideElevatorShaft,
+        standardStairs,
+        spikePillarJump,
+        spikeElevatorShaftLong,
+        spikeElevatorShaft,
+        spikeStairs
         };
 
 
@@ -223,6 +296,21 @@ public class MapGeneratorScript : MonoBehaviour
                 else if (col == 'b')
                 {
                     lastObjectInRow = SpawnObject(smallBlock, isFirstObject);
+                }
+                else if (col == 's')
+                {
+                    lastObjectInRow = SpawnObject(slideWall, isFirstObject);
+                }
+                else if (col == 'p')
+                {
+                    if (Random.value < 0.5f)
+                    {
+                        lastObjectInRow = SpawnObject(spikeWallRight, isFirstObject);
+                    }
+                    else
+                    {
+                        lastObjectInRow = SpawnObject(spikeWallLeft, isFirstObject);
+                    }
                 }
 
 

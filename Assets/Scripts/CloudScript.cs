@@ -18,8 +18,8 @@ public class CloudScript : MonoBehaviour
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj == null)
         {
-            Debug.LogError("No GameObject with tag 'Player' found!");
-            return;
+            Debug.LogWarning("No GameObject with tag 'Player' found!");
+            target = Camera.main.transform;
         }
         else
         {

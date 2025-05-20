@@ -170,6 +170,9 @@ MonoBehaviour:
   standardWall: {fileID: 6853101624086219989, guid: bf94ef427cd59a842844710edab07e5d, type: 3}
   groundPrefab: {fileID: 4337513501154744013, guid: 72d3a12b15efb2e46b448a3bd140d365, type: 3}
   smallBlock: {fileID: 3584316300872367206, guid: 5cc3e3251b67eda4987cff43b0880f08, type: 3}
+  slideWall: {fileID: 6853101624086219989, guid: ac45c9a220d603041a4f98ff3ead882a, type: 3}
+  spikeWallRight: {fileID: 6901043865853482774, guid: 7907ae39be1feb54c882461826e35f37, type: 3}
+  spikeWallLeft: {fileID: 1762143084274849027, guid: ea3398264954a434b997a05dc00a323e, type: 3}
 --- !u!1001 &240508935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1635,6 +1638,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135570769960360872, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569932384569664951, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6888770671438726025, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
