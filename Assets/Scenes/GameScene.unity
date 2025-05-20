@@ -171,7 +171,7 @@ MonoBehaviour:
   groundPrefab: {fileID: 4337513501154744013, guid: 72d3a12b15efb2e46b448a3bd140d365, type: 3}
   smallBlock: {fileID: 3584316300872367206, guid: 5cc3e3251b67eda4987cff43b0880f08, type: 3}
   slideWall: {fileID: 6853101624086219989, guid: ac45c9a220d603041a4f98ff3ead882a, type: 3}
-  spikeWallRight: {fileID: 6901043865853482774, guid: 7907ae39be1feb54c882461826e35f37, type: 3}
+  spikeWallRight: {fileID: 1762143084274849027, guid: dabab0dec9c114c489585f78a271abf3, type: 3}
   spikeWallLeft: {fileID: 1762143084274849027, guid: ea3398264954a434b997a05dc00a323e, type: 3}
 --- !u!1001 &240508935
 PrefabInstance:
@@ -1188,7 +1188,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15049732, y: -0.18301216}
+  m_Offset: {x: -0.15049732, y: -0.15768369}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1199,7 +1199,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76353765, y: 0.7356679}
+  m_Size: {x: 0.76353765, y: 0.78632486}
   m_EdgeRadius: 0
 --- !u!1001 &1550597650
 PrefabInstance:
