@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         sr = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        ani.SetBool("IsJumping", true);
+        ani.SetBool("IsStanding", false);
 
     }
 

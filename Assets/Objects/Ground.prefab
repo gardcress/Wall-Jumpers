@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2049167705710152075}
   - component: {fileID: 6016942795237384532}
   - component: {fileID: 648902443620859872}
-  - component: {fileID: 6542117532480090726}
+  - component: {fileID: 470720765355450807}
   m_Layer: 0
   m_Name: Ground
   m_TagString: MapObject
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 19.897972, y: 1.0112154}
   m_EdgeRadius: 0
---- !u!114 &6542117532480090726
+--- !u!114 &470720765355450807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4337513501154744013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7546bb7086a22c4fbfde2638d784aa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8adea71ea3c447a488874332864fa572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityValue: 0
