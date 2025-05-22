@@ -2570,7 +2570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50f822b1c7e4c741b4b53a436bb60ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSound: {fileID: 8300000, guid: 4cbd78efb74e1ed4fb8b2ef3fb68b33c, type: 3}
+  jumpSound1: {fileID: 8300000, guid: 4cbd78efb74e1ed4fb8b2ef3fb68b33c, type: 3}
+  jumpSound2: {fileID: 8300000, guid: a046f8c641f5ba34bb77dd26696106d7, type: 3}
   pickupSound: {fileID: 0}
   jumpForce: 5
   moveForce: 3
