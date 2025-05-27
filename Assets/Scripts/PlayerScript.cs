@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float jumpForce = 10f;    // Vertical force for the jump
-    public float moveForce = 5f;     // Horizontal force for the jump direction
+    [SerializeField] private AudioClip jumpSound, pickupSound;
+    public float jumpForce = 5f;    // Vertical force for the jump
+    public float moveForce = 3f;     // Horizontal force for the jump direction
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
-    private bool isJumping = false;  // Flag to check if the player is in the air
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
+    private SpriteRenderer sr;
+    private AudioSource audioSource;
+
+    public Animator ani;
 
     void Start()
     {
         // Get the Rigidbody2D component attached to the player
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        ani.SetBool("IsJumping", true);
+        ani.SetBool("IsStanding", false);
+
     }
 
     void Update()
@@ -22,63 +31,37 @@ public class PlayerScript : MonoBehaviour
         // Check for mouse click or screen tap
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isJumping)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            if (rb.gravityScale <= 0.4f)
             {
-                // Jump if not currently jumping
-                ResumeFalling();
                 Jump();
-            }
+            } 
             else
             {
-                // Reverse direction if already jumping
-                ResumeFalling();
-                ReverseDirection();
-                Jump(); // Jump again in the new direction
+                ChangeDirection();
             }
         }
     }
 
-    void Jump()
+    void ChangeDirection()
     {
-        // Apply vertical jump force (Y-axis)
-        if (!isJumping)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);  // Set the Y velocity for the jump
-
-        }
-
-        // Apply horizontal force in the current direction (right or left)
         float direction = isFacingRight ? 1f : -1f;
-        
-        rb.velocity = new Vector2(direction * moveForce, rb.velocity.y); // Apply the horizontal force to the velocity
-
-        // Set jumping state to true
-        isJumping = true;
-    }
-
-    // Reverse the direction of the jump
-    void ReverseDirection()
-    {
-        // Flip the direction flag
+        rb.velocity = new Vector2(direction * moveForce, rb.velocity.y);
         isFacingRight = !isFacingRight;
+        //sr.flipX = !sr.flipX;
+        Vector3 flipX = transform.localScale;
+        flipX.x *= -1;
+        transform.localScale = flipX;
     }
 
-    // Check when the player lands (to allow more jumps)
-    void OnCollisionEnter2D(Collision2D collision)
+    void Jump ()
     {
-        // If the player hits the ground (or any object tagged "Ground")
-        if (collision.gameObject.CompareTag("MapObject"))
-        {
-            isJumping = false;  // Reset jump state to allow another jump
-            ReverseDirection();
-            StopFalling();
-        }
-    }
-
-    void StopFalling()
-    {
-        rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero;
+        ResumeFalling();
+        ChangeDirection();
+        ani.SetBool("IsStanding", false);
+        ani.SetBool("IsJumping", true);
+        audioSource.PlayOneShot(jumpSound, 0.5f);
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     void ResumeFalling()
