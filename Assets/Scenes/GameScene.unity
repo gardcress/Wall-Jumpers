@@ -1349,6 +1349,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 7338043548809107350, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_TagString
+      value: PauseButton
+      objectReference: {fileID: 0}
     - target: {fileID: 8048557974429722221, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
       propertyPath: m_Sprite
       value: 

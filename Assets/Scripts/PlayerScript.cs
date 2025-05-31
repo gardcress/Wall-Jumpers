@@ -34,7 +34,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         // Check for mouse click or screen tap
-        if (Input.GetMouseButtonDown(0))
+        if (!PausPanelScript.isPaused && Input.GetMouseButtonDown(0))
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (rb.gravityScale <= 0.4f)
@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            audioSource.pitch = Random.Range(0.8f, 1.5f); // Set pitch
+            audioSource.pitch = Random.Range(0.8f, 1.3f); // Set pitch
             audioSource.clip = jumpSound2;               // Assign clip
             audioSource.Play();
         }

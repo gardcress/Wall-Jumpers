@@ -5,17 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PausPanelScript : MonoBehaviour
 {
-
+    public static bool isPaused { get; private set; } = false;
     public GameObject PausMenu;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Pause ()
     {
+        isPaused = true;
         PausMenu.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -24,6 +19,7 @@ public class PausPanelScript : MonoBehaviour
     {
         PausMenu.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
     }
 
     public string gameSceneName = "MenuScene";
