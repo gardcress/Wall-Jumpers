@@ -27,6 +27,7 @@ public class PausPanelScript : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
+        isPaused = false;
         SceneManager.LoadScene(gameSceneName);
     }
 
