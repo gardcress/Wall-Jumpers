@@ -348,3 +348,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSceneName: MenuScene
+  deathSound: {fileID: 8300000, guid: d2a729ca86b6c974c8d2c85c9f978204, type: 3}

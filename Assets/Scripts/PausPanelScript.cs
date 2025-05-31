@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PausPanelScript : MonoBehaviour
 {
-    public static bool isPaused { get; private set; } = false;
+    public static bool isPaused  = false;
     public GameObject PausMenu;
 
     public void Pause ()
@@ -22,13 +22,21 @@ public class PausPanelScript : MonoBehaviour
         isPaused = false;
     }
 
-    public string gameSceneName = "MenuScene";
+    public string menuScene = "MenuScene";
 
-    public void StartGame()
+    public void BackToMenu()
     {
         Time.timeScale = 1f;
         isPaused = false;
-        SceneManager.LoadScene(gameSceneName);
+        SceneManager.LoadScene(menuScene);
+    }
+
+    public void Reload()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 
 }
