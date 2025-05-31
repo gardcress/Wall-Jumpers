@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] private AudioClip jumpSound, pickupSound;
+    [SerializeField] private AudioClip jumpSound1;
+    [SerializeField] private AudioClip jumpSound2;
+    [SerializeField] private AudioClip pickupSound;
     public float jumpForce = 5f;    // Vertical force for the jump
     public float moveForce = 3f;     // Horizontal force for the jump direction
     private Rigidbody2D rb;          // Rigidbody2D for physics interactions
@@ -13,6 +16,8 @@ public class PlayerScript : MonoBehaviour
     private AudioSource audioSource;
 
     public Animator ani;
+
+    private bool useFirstJumpSound = true; // Flag to alternate jump sounds
 
     void Start()
     {
@@ -60,7 +65,18 @@ public class PlayerScript : MonoBehaviour
         ChangeDirection();
         ani.SetBool("IsStanding", false);
         ani.SetBool("IsJumping", true);
-        audioSource.PlayOneShot(jumpSound, 0.5f);
+        if (useFirstJumpSound)
+        {
+            audioSource.PlayOneShot(jumpSound1, 0.5f); //Add commentMore actions
+        }
+        else
+        {
+            audioSource.pitch = Random.Range(0.8f, 1.5f); // Set pitch
+            audioSource.clip = jumpSound2;               // Assign clip
+            audioSource.Play();
+        }
+
+        useFirstJumpSound = !useFirstJumpSound; // Toggle the flag
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
