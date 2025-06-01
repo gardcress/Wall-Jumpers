@@ -1,46 +1,57 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 2.0f;
-    [SerializeField] private float bounciness = 100f;
+    public Transform pointA;
+    public Transform pointB;
+    public float speed = 2f;
+    public float bounceForce = 300f;  // Hur mycket spelaren studsar upp
+
+    private Vector3 target;
     private SpriteRenderer rend;
 
-    private void Start()
+    void Start()
     {
+        target = pointB.position;
         rend = GetComponent<SpriteRenderer>();
     }
 
-    private void FixedUpdate()
+    void Update()
     {
-        // Fienden rör sig vertikalt
-        transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-        // Flippa sprite beroende på riktning (valfritt)
-        rend.flipX = moveSpeed > 0;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Vänd riktning om den träffar annan fiende eller vägg
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBlock"))
+        if (Vector3.Distance(transform.position, target) < 0.1f)
         {
-            moveSpeed = -moveSpeed;
+            target = target == pointA.position ? pointB.position : pointA.position;
         }
 
-        // Om den träffar spelaren
-        if (other.CompareTag("Player"))
+        rend.flipX = target.x < transform.position.x;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            // Kolla om spelaren är över fienden (liten buffert för bättre känsla)
+            if (collision.contacts[0].normal.y > 0.5f)
             {
-                rb.velocity = Vector2.zero;
-                rb.AddForce(Vector2.up * bounciness);
+                // Döda fienden
+                Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+                if (playerRb != null)
+                {
+                    playerRb.velocity = Vector2.zero;
+                    playerRb.AddForce(Vector2.up * bounceForce);
+                }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
+            else
+            {
+                // Här kan du lägga skada på spelaren, t.ex.
+                Debug.Log("Spelaren skadas eller dör!");
+                // Skriv din kod för att hantera spelarens död/skada här
+            }
         }
     }
 }
+
 
