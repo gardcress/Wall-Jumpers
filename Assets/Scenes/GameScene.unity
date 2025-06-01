@@ -180,6 +180,7 @@ MonoBehaviour:
   spikeWallLeft: {fileID: 1762143084274849027, guid: ea3398264954a434b997a05dc00a323e, type: 3}
   halfWall: {fileID: 6853101624086219989, guid: 9e25a449271141b41bc6c25f8b974979, type: 3}
   stickyWall: {fileID: 6853101624086219989, guid: 1d007a086e0c7a34b973d9c7f9671469, type: 3}
+  movingHalfWall: {fileID: 6853101624086219989, guid: c9b8982dbfcd22042a8213f7b878f8ec, type: 3}
 --- !u!1001 &240508935
 PrefabInstance:
   m_ObjectHideFlags: 0

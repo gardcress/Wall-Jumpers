@@ -11,14 +11,17 @@ public class MapGeneratorScript : MonoBehaviour
 {
     public int objectsPerTheme = 10;
     
+    // The symbol in the comment reflects where it is placed in the segments below
+    // If objects share a symbol they are both spawned randomly at that location
     public GameObject standardWall; //x
     public GameObject groundPrefab; //
     public GameObject smallBlock; //b
     public GameObject slideWall; //s
-    public GameObject spikeWallRight; //d
-    public GameObject spikeWallLeft; //a
-    public GameObject halfWall;
-    public GameObject stickyWall;
+    public GameObject spikeWallRight; //p
+    public GameObject spikeWallLeft; //p
+    public GameObject halfWall; //x
+    public GameObject stickyWall; //x
+    public GameObject movingHalfWall; //h
 
 
 
@@ -105,14 +108,14 @@ public class MapGeneratorScript : MonoBehaviour
 
     private string[] smallBlockClimbWall = new string[]
     {
-        "-b+++b",
+        "-b+++b--",
         "+b++++b",
         "+++b---b----b",
         "b+++++b",
         "---b---b",
-        "--b++++b+++++b",
-        "+--b-b----b",
-        "-b++b++b"
+        "++++b+++++b",
+        "+--b--b----b",
+        "++b++b++b"
     };
 
     private string[] standardWallNormal = new string[]
@@ -169,6 +172,32 @@ public class MapGeneratorScript : MonoBehaviour
         "++x"
     };
 
+    // MOVING SEGMENTS
+
+    private string[] movingSmallPillarJump = new string[]
+    {
+        "+x",
+        "+h+*+x+/+h+/+x*++h",
+        "x"
+    };
+
+    private string[] movinglongPillarJump = new string[]
+    {
+        "+x",
+        "+h+*+x+/+h+/+x*++h+*+x+/+h+/+x*++h",
+        "x"
+    };
+
+    private string[] movingStairs = new string[]
+    {
+        "++x",
+        "++h",
+        "+b",
+        "++h",
+        "++x",
+        "++h"
+    };
+
 
     private Vector2 spawnerAnchor = new Vector2(0,0);
     private GameObject lastObjectInRow;
@@ -205,6 +234,8 @@ public class MapGeneratorScript : MonoBehaviour
 
 
         SpawnMap(standardWallNormal);
+
+        
 
 
         SpawnRandomMap();
@@ -247,7 +278,11 @@ public class MapGeneratorScript : MonoBehaviour
         spikePillarJump,
         spikeElevatorShaftLong,
         spikeElevatorShaft,
-        spikeStairs
+        spikeStairs,
+        movingSmallPillarJump,
+        movingSmallPillarJump,
+        movinglongPillarJump,
+        movingStairs,
         };
 
 
@@ -306,6 +341,11 @@ public class MapGeneratorScript : MonoBehaviour
                         lastObjectInRow = SpawnObject(standardWall, isFirstObject);
                     }
                     
+                }
+                else if(col == 'h')
+                {
+                    lastObjectInRow = SpawnObject(movingHalfWall, isFirstObject);
+
                 }
                 else if (col == 'b')
                 {

@@ -9,6 +9,7 @@ public class PlayerWallTouch : MonoBehaviour
     private Rigidbody2D playerRb;
     private Animator ani;
 
+    public bool preventTopStop = false;
     public float gravityValue = 0f;
 
     // Start is called before the first frame update
@@ -46,12 +47,15 @@ public class PlayerWallTouch : MonoBehaviour
 
                 
                 // top
-                if (Vector2.Dot(contact.normal, Vector2.down) > 0.9f)
+                if (preventTopStop == false && Vector2.Dot(contact.normal, Vector2.down) > 0.9f)
                 {
                     StopPlayer();
                     ani.SetBool("IsJumping", false);
                     ani.SetBool("IsStanding", true);
                     ApplyGravity(0);
+                    return;
+                } else if (Vector2.Dot(contact.normal, Vector2.down) > 0.9f)
+                {
                     return;
                 }
 
