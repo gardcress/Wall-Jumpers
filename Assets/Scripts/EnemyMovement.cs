@@ -5,48 +5,42 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2.0f;
-    [SerializeField] private float bounciness = 100;
+    [SerializeField] private float bounciness = 100f;
     private SpriteRenderer rend;
 
-    // Start is called before the first frame update
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        transform.Translate(new Vector2(0, moveSpeed) * Time.deltaTime);
+        // Fienden rör sig vertikalt
+        transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
 
-        if (moveSpeed > 0)
-        {
-            rend.flipX = true;
-        }
-
-        if (moveSpeed < 0)
-        {
-            rend.flipX = false;
-        }
+        // Flippa sprite beroende på riktning (valfritt)
+        rend.flipX = moveSpeed > 0;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        // Vänd riktning om den träffar annan fiende eller vägg
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBlock"))
         {
             moveSpeed = -moveSpeed;
         }
 
-        if (other.gameObject.CompareTag("EnemyBlock"))
-        {
-            moveSpeed = -moveSpeed;
-        }
-
+        // Om den träffar spelaren
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            other.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, bounciness));
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.AddForce(Vector2.up * bounciness);
+            }
             Destroy(gameObject);
         }
     }
 }
+
