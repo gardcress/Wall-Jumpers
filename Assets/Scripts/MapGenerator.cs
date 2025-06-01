@@ -17,6 +17,8 @@ public class MapGeneratorScript : MonoBehaviour
     public GameObject slideWall; //s
     public GameObject spikeWallRight; //d
     public GameObject spikeWallLeft; //a
+    public GameObject halfWall;
+    public GameObject stickyWall;
 
 
 
@@ -291,7 +293,19 @@ public class MapGeneratorScript : MonoBehaviour
                 // MAP OBJECTS
                 if (col == 'x')
                 {
-                    lastObjectInRow = SpawnObject(standardWall, isFirstObject);
+                    if (Random.value < 0.2f)
+                    {
+                        lastObjectInRow = SpawnObject(stickyWall, isFirstObject);
+                    }
+                    else if(Random.value < 0.5f)
+                    {
+                        lastObjectInRow = SpawnObject(halfWall, isFirstObject);
+                    }
+                    else
+                    {
+                        lastObjectInRow = SpawnObject(standardWall, isFirstObject);
+                    }
+                    
                 }
                 else if (col == 'b')
                 {
