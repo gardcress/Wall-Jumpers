@@ -1663,6 +1663,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1596452115854265540, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 134.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596452115854265540, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 166.37737
+      objectReference: {fileID: 0}
+    - target: {fileID: 1702309808922318705, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1702309808922318705, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1872580588230480929, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1914,6 +1930,18 @@ PrefabInstance:
     - target: {fileID: 6135570769960360872, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282263416384765473, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282263416384765473, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282263416384765473, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6504489830908940121, guid: 2bf091845826ff941a4826ce84d1889d, type: 3}
       propertyPath: m_Type
@@ -2325,7 +2353,7 @@ PrefabInstance:
     - target: {fileID: 8733607359919628977, guid: 30cbe6c4d8f80a44bb7c6fd4e0503f60, type: 3}
       propertyPath: jumpSound1
       value: 
-      objectReference: {fileID: 8300000, guid: 4cbd78efb74e1ed4fb8b2ef3fb68b33c, type: 3}
+      objectReference: {fileID: 8300000, guid: 1b68da585e810534abc3c54c482f6a38, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
