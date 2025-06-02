@@ -16,6 +16,8 @@ public class MapGeneratorScript : MonoBehaviour
     public GameObject standardWall; //x
     public GameObject groundPrefab; //
     public GameObject smallBlock; //b
+    public GameObject arrowBlockLeft; //b 5%
+    public GameObject arrowBlockRight; //b 5%
     public GameObject slideWall; //s
     public GameObject spikeWallRight; //p
     public GameObject spikeWallLeft; //p
@@ -349,7 +351,19 @@ public class MapGeneratorScript : MonoBehaviour
                 }
                 else if (col == 'b')
                 {
-                    lastObjectInRow = SpawnObject(smallBlock, isFirstObject);
+                    float randomizer = Random.value;
+                    if(randomizer < 0.05f)
+                    {
+                        lastObjectInRow = SpawnObject(arrowBlockLeft, isFirstObject);
+                    }
+                    else if (randomizer < 0.1f)
+                    {
+                        lastObjectInRow = SpawnObject(arrowBlockRight, isFirstObject);
+                    }
+                    else
+                    {
+                        lastObjectInRow = SpawnObject(smallBlock, isFirstObject);
+                    }
                 }
                 else if (col == 's')
                 {
