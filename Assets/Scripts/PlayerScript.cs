@@ -6,7 +6,10 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private AudioClip jumpSound1;
+    [SerializeField] private AudioClip randomPitchJumpSound;
     [SerializeField] private AudioClip jumpSound2;
+    [SerializeField] private AudioClip jumpSound3;
+    [SerializeField] private AudioClip jumpSound4;
     [SerializeField] private AudioClip pickupSound;
     public float jumpForce = 5f;    // Vertical force for the jump
     public float moveForce = 3f;     // Horizontal force for the jump direction
@@ -14,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     private bool isFacingRight = true; // Keeps track of the current direction (facing right or left)
     private SpriteRenderer sr;
     private AudioSource audioSource;
+    private AudioClip[] jumpSounds;
 
     public Animator ani;
 
@@ -28,6 +32,9 @@ public class PlayerScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         ani.SetBool("IsJumping", true);
         ani.SetBool("IsStanding", false);
+
+        AudioClip[] allClips = new AudioClip[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
+        jumpSounds = System.Array.FindAll(allClips, clip => clip != null);
 
     }
 
@@ -67,14 +74,20 @@ public class PlayerScript : MonoBehaviour
         ani.SetBool("IsJumping", true);
         if (useFirstJumpSound)
         {
-            audioSource.PlayOneShot(jumpSound1, 0.5f); //Add commentMore actions
+            AudioClip selected = jumpSounds[Random.Range(0, jumpSounds.Length)];
+            audioSource.PlayOneShot(selected, 0.5f); //Add commentMore actions
         }
-        else
+        else if (randomPitchJumpSound != null) 
         {
             audioSource.pitch = Random.Range(0.8f, 1.3f); // Set pitch
-            audioSource.clip = jumpSound2;               // Assign clip
+            audioSource.clip = randomPitchJumpSound;               // Assign clip
             audioSource.Play();
+        } else
+        {
+            AudioClip selected = jumpSounds[Random.Range(0, jumpSounds.Length)];
+            audioSource.PlayOneShot(selected, 0.5f); //Add commentMore actions
         }
+
 
         useFirstJumpSound = !useFirstJumpSound; // Toggle the flag
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);

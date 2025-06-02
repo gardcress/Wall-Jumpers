@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    public Transform target; // The object to follow
+    private Transform target; // The object to follow
     public Vector3 offset;   // Offset from the target
     public float smoothSpeed = 4.0f; // Smoothness of the camera movement
+    private GameObject player;
+
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+        target = player.transform;
+    }
 
     void LateUpdate()
     {

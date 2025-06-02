@@ -27,6 +27,8 @@ public class CharacterSelector : MonoBehaviour
             Debug.LogError("No target sprite object found");
             return;
         }
+        selectNewPlayer();
+
     }
 
     public void selectRight()
@@ -55,7 +57,8 @@ public class CharacterSelector : MonoBehaviour
     {
         if (playerCounter == 0)
         {
-            gameObjectId = "default";
+            //gameObjectId = "default";
+            PlayerPrefs.SetInt("playerId", 0);
             targetSpriteObject.GetComponent<Image>().sprite = defaultPlayer;
             targetSpriteObject.transform.localScale = new Vector3(3.7f, 3.7f, 3.7f);
 
@@ -63,7 +66,8 @@ public class CharacterSelector : MonoBehaviour
         }
         if (playerCounter == 1)
         {
-            gameObjectId = "crow";
+            //gameObjectId = "crow";
+            PlayerPrefs.SetInt("playerId", 1);
             targetSpriteObject.GetComponent<Image>().sprite = crowPlayer;
             targetSpriteObject.transform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
             return;
