@@ -1,57 +1,54 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform pointA;
-    public Transform pointB;
-    public float speed = 2f;
-    public float bounceForce = 300f;  // Hur mycket spelaren studsar upp
+    [SerializeField] private float moveSpeed = 2.0f;
+    [SerializeField] private float moveHeight = 2.0f;
+    [SerializeField] private float bounciness = 300f;
+    [SerializeField] private string menuSceneName = "MenuScene"; // Samma scen som i GameOverScript
 
-    private Vector3 target;
-    private SpriteRenderer rend;
+    private Vector3 startPos;
 
-    void Start()
+    private void Start()
     {
-        target = pointB.position;
-        rend = GetComponent<SpriteRenderer>();
+        startPos = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, target) < 0.1f)
-        {
-            target = target == pointA.position ? pointB.position : pointA.position;
-        }
-
-        rend.flipX = target.x < transform.position.x;
+        float newY = startPos.y + Mathf.PingPong(Time.time * moveSpeed, moveHeight);
+        transform.position = new Vector3(startPos.x, newY, startPos.z);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            // Kolla om spelaren är över fienden (liten buffert för bättre känsla)
-            if (collision.contacts[0].normal.y > 0.5f)
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+
+            // Kontrollera om spelaren hoppar på fienden uppifrån
+            if (other.transform.position.y > transform.position.y + 0.3f)
             {
-                // Döda fienden
-                Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-                if (playerRb != null)
+                if (rb != null)
                 {
-                    playerRb.velocity = Vector2.zero;
-                    playerRb.AddForce(Vector2.up * bounceForce);
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                    rb.AddForce(Vector2.up * bounciness);
                 }
-                Destroy(gameObject);
+
+                Destroy(gameObject); // Fienden dör
             }
             else
             {
-                // Här kan du lägga skada på spelaren, t.ex.
-                Debug.Log("Spelaren skadas eller dör!");
-                // Skriv din kod för att hantera spelarens död/skada här
+                // Spelaren träffade fienden från sidan eller underifrån → Game Over
+                SceneManager.LoadScene(menuSceneName); // Samma som när spelaren faller ner
             }
         }
     }
 }
+
+
 
 
